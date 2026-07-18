@@ -56,7 +56,7 @@ function FreeDelivery() {
         className="relative z-10 w-screen flex flex-col items-center gap-8 px-5 mt-[150px]"
       >
         {/* Products */}
-        <div className="w-full grid grid-cols-4 gap-y-10 gap-x-5 justify-items-stretch items-center">
+        <div className="w-full grid grid-cols-4 grid-flow-row gap-y-10 gap-x-5 justify-items-stretch items-center">
           {filteredData.map((phka) => (
             <div
               key={phka.id}

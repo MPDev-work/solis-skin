@@ -14,6 +14,8 @@ import LoginPage from './page/LoginPage.jsx';
 import RegisterPage from './page/RegisterPage.jsx';
 import Navbar from './components/Navbar.jsx';
 import FooterBar from './components/FooterBar.jsx';
+import ProductPreview from './page/ProductPreview.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 function Layout() {
   const location = useLocation();
@@ -36,6 +38,7 @@ function Layout() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/freedelivery" element={<FreeDelivery />} />
         <Route path="/bag" element={<Bag />} />
+        <Route path="/product/:id" element={<ProductPreview />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/phka" element={<PhkaMainPage />} />
         <Route path="/shopall" element={<ShopAll />} />
@@ -53,7 +56,9 @@ function Layout() {
 function App() {
   return (
     <HashRouter>
-      <Layout />
+      <CartProvider>
+        <Layout />
+      </CartProvider>
     </HashRouter>
   );
 }

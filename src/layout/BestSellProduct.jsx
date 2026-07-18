@@ -1,6 +1,3 @@
-import Available from '../components/Available';
-import OutOfStock from '../components/OutOfStock';
-import NotUpdated from '../components/NotUpdated';
 import { DataCenter } from '../data/DataCenter';
 import { Fragment } from 'react';
 
@@ -28,16 +25,6 @@ function BestSellProduct() {
       return;
     }
   };
-  const stockStatus = (stock) => {
-    if (stock > 0) {
-      return <Available />;
-    } else if (stock === 0) {
-      return <OutOfStock />;
-    } else {
-      return <NotUpdated />;
-    }
-  };
-
   return (
     <Fragment>
       {/* new arrivals section */}

@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import Login from '../page/Login';
+import { useCart } from '../context/useCart';
 
 function Navbar() {
   const location = useLocation();
+  const { count } = useCart();
 
   const navLinkClass = (path) =>
     `font-medium text-base transition duration-200 
@@ -52,8 +54,10 @@ function Navbar() {
           ></Link>
           <Link
             to="/bag"
-            className="bi bi-bag h-full w-auto text-[32px] pl-6 flex justify-center items-center"
-          ></Link>
+            className="relative bi bi-bag h-full w-auto text-[32px] pl-6 flex justify-center items-center"
+          >
+            {count > 0 && <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-red-500 px-1 text-[11px] font-sans text-white">{count}</span>}
+          </Link>
         </div>
       </div>
       <ul className="flex flex-row items-center gap-6 pb-[5px]">

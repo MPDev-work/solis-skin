@@ -3,9 +3,11 @@
   font-family: 'Outfit', sans-serif;
   scroll-behavior: smooth;
   scrollbar-width: thin;
+  scrollbar-color: #7a7a7a transparent;
 }
 :root {
   --primary-color: #dc3545;
+  /* --primary-color: ; */
 }
 
 .no-scrollbar::-webkit-scrollbar {

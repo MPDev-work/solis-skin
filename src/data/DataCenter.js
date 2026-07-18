@@ -117,7 +117,7 @@ export const DataCenter = [
     productCategory: 'blush',
     sold: 844,
     ratting: 4.5,
-    stock: 200,
+    stock: 0,
     deliveryStatus: false,
     availableSize: [50, 100, 200, 250, 300, 500],
   },
