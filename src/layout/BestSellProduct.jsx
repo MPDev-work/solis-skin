@@ -40,12 +40,9 @@ function BestSellProduct() {
         </div>
 
         {/* Products */}
-        <div className="relative w-full flex justify-between items-start">
+        <div className="relative w-full grid grid-cols-4 grid-flow-row gap-5 justify-between">
           {BestSeller.slice(0, 4).map((bestsell) => (
-            <div
-              key={bestsell.id}
-              className="relative w-[calc(100%/4-50px/4)] flex flex-col gap-1"
-            >
+            <div key={bestsell.id} className="relative flex flex-col gap-1">
               {/* Image */}
               <div className="relative w-full h-max flex justify-center items-center">
                 <img

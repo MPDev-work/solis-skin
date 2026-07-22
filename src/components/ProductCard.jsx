@@ -8,58 +8,106 @@ export default function ProductCard({ product }) {
     (1 - product.discountPercent / 100)
   ).toFixed(2);
 
+  // check delivery status
+  const getDeliveryStatus = (deliveryStatus) => {
+    if (deliveryStatus === true) {
+      return (
+        <p className="text-[10px] text-amber-300 px-1 bg-green-700 rounded-tr-sm">
+          Free <span className="text-white">Delivery</span>
+        </p>
+      );
+    } else {
+      return;
+    }
+  };
+
   return (
-    <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-lg">
+    <div className="relative flex flex-col gap-1 group">
       <Link
         to={`/product/${product.id}`}
-        className="block"
         aria-label={`View ${product.title}`}
+        className="block"
       >
-        <div className="relative aspect-square overflow-hidden bg-gray-50">
+        {/* Image */}
+        <div className="relative w-full aspect-square flex justify-center items-center overflow-hidden">
           <img
             src={product.src}
             alt={product.alt}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            className="w-full aspect-square object-cover transition duration-300 group-hover:scale-105"
           />
-          <span className="absolute left-3 top-3 rounded-md bg-red-500 px-2 py-1 text-xs font-semibold text-white">
-            -{product.discountPercent}%
-          </span>
+
+          {/* Delivery Status */}
+          {product.deliveryStatus && (
+            <div className="absolute left-0 bottom-0">
+              {getDeliveryStatus(product.deliveryStatus)}
+            </div>
+          )}
+
+          {/* Sold Out */}
           {product.stock === 0 && (
-            <span className="absolute inset-0 grid place-items-center bg-black/40 text-sm font-bold text-white">
-              SOLD OUT
-            </span>
+            <div className="absolute inset-0 bg-black/40 flex justify-center items-center">
+              <span className="text-white text-sm font-bold">SOLD OUT</span>
+            </div>
           )}
         </div>
-        <div className="p-4 pb-2">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-400">
+
+        {/* Info */}
+        <div className="h-full pl-2.5 pt-2.5">
+          <p className="text-xs uppercase tracking-wide text-gray-400">
             {product.productCategory}
           </p>
-          <h3 className="min-h-12 font-semibold leading-6 text-gray-900">
-            {product.title}
-          </h3>
-          <div className="mt-2 flex items-center gap-2">
-            <span className="font-bold text-red-500">${price}</span>
-            <span className="text-sm text-gray-400 line-through">
-              ${product.fullPrice.toFixed(2)}
-            </span>
+
+          <h1 className="text-lg font-medium truncate">{product.title}</h1>
+
+          {/* Rating + Sold */}
+          <div className="flex items-center">
+            <div className="text-[14px] flex items-center gap-0.5">
+              {product.ratting}
+              <i className="bi bi-star-fill text-[10px] text-amber-500"></i>
+            </div>
+
+            <i className="bi bi-dot text-gray-600/70"></i>
+
+            <p className="text-[12px] text-gray-600/70">
+              {product.sold.toLocaleString()} sold
+            </p>
           </div>
-          <p className="mt-1 text-xs text-amber-500">
-            <i className="bi bi-star-fill" /> {product.ratting}{' '}
-            <span className="text-gray-400">
-              · {product.sold.toLocaleString()} sold
-            </span>
-          </p>
+
+          {/* Price */}
+          <div className="flex gap-3">
+            <p className="text-2xl text-red-500 font-medium">${price}</p>
+
+            <p className="text-[14px] line-through text-gray-500">
+              ${product.fullPrice.toFixed(2)}
+            </p>
+          </div>
         </div>
       </Link>
+
+      {/* Discount Badge */}
+      <div className="absolute top-2 left-2 h-6.5 w-12 bg-[var(--primary-color)] flex justify-center items-center">
+        <span className="text-white text-sm">-{product.discountPercent}%</span>
+      </div>
+
+      {/* Add Button */}
       <button
         type="button"
         disabled={product.stock === 0}
         onClick={() => addToCart(product)}
-        className="m-4 mt-2 flex w-[calc(100%-2rem)] items-center justify-center gap-2 rounded-full bg-black py-2.5 text-sm font-medium text-white transition hover:bg-red-500 disabled:cursor-not-allowed disabled:bg-gray-300"
+        className={`absolute right-0.5 bottom-0 h-10 px-10 flex justify-center items-center rounded-full text-sm transition duration-200
+      ${
+        product.stock === 0
+          ? 'bg-gray-400 cursor-not-allowed text-white'
+          : 'text-[var(--primary-color)] border border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white active:bg-red-300'
+      }`}
       >
-        <i className="bi bi-bag-plus" />{' '}
-        {product.stock === 0 ? 'Out of stock' : 'Add to bag'}
+        <i className="bi bi-bag-plus text-lg"></i>
       </button>
-    </article>
+
+      {/* Heart */}
+      <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-red-400/20 flex justify-center items-center">
+        <i className="bi bi-heart text-lg text-[var(--primary-color)]"></i>
+      </div>
+    </div>
   );
 }
